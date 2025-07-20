@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Configure OpenRouter API
-openai.api_key = "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"  # Your OpenRouter API key
+openai.api_key = "[API_KEY]"  # Your OpenRouter API key
 openai.api_base = "https://openrouter.ai/api/v1"  # Point to OpenRouter API
 
 def allowed_file(filename):
