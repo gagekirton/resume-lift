@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Resume Lift - AI Resume Feedback{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Main View -->
+    <div id="main-view">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h1 class="display-5 fw-bold mb-3">Upload Your Resume for Instant AI Feedback</h1>
+                <p class="lead text-muted mb-4">Drag and drop or select a file to get started. We support PDF, TXT, and DOCX formats.</p>
+
+                <!-- Upload Area -->
+                <div id="upload-area" class="upload-box p-5 rounded-3 mb-4">
+                    <input type="file" id="resume-upload" accept=".pdf,.txt,.docx" class="d-none">
+                    <i class="fas fa-cloud-upload-alt fa-3x text-primary mb-3"></i>
+                    <p class="mb-2"><strong>Drag & drop your file here</strong></p>
+                    <p class="text-muted mb-3">or</p>
+                    <button class="btn btn-primary" id="browse-btn">Browse Files</button>
+                </div>
+
+                <!-- Processing Indicator -->
+                <div id="processing" class="d-none">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-2">Analyzing your resume, please wait...</p>
+                </div>
+
+                <!-- API Key & Sample Link -->
+                <div class="d-flex justify-content-center align-items-center small text-muted">
+                    <a href="#" id="sample-resume" class="text-muted">Try a Sample Resume</a>
+                    <span class="mx-2">|</span>
+                    <a href="#" data-bs-toggle="collapse" data-bs-target="#apiKeyContainer" class="text-muted">Use Custom API Key</a>
+                </div>
+
+                <!-- API Key Input (Collapsible) -->
+                <div id="apiKeyContainer" class="collapse mt-3">
+                    <div class="input-group input-group-sm mx-auto" style="max-width: 400px;">
+                        <input type="password" class="form-control" id="apiKeyInput" placeholder="Enter your OpenRouter API key">
+                        <button class="btn btn-outline-secondary" type="button" id="toggleApiKeyVisibility"><i class="fas fa-eye"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results View -->
+    <div id="results-view" class="d-none">
+        <div class="row">
+            <!-- Left Panel: Scores -->
+            <div class="col-md-4">
+                <div class="card sticky-top" style="top: 20px;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Overall Score</h5>
+                        <div class="score-circle-container my-3">
+                            <svg viewBox="0 0 36 36" class="score-circle">
+                                <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <path class="circle-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            </svg>
+                            <div class="score-percentage">0%</div>
+                        </div>
+                        <p id="overall-summary" class="text-muted"></p>
+                    </div>
+                    <ul id="score-breakdown" class="list-group list-group-flush"></ul>
+                </div>
+            </div>
+
+            <!-- Right Panel: Feedback Details -->
+            <div class="col-md-8">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="h4 mb-0">Detailed Feedback</h2>
+                    <div>
+                        <button class="btn btn-sm btn-outline-secondary me-2" id="copy-feedback-btn"><i class="fas fa-copy me-1"></i> Copy</button>
+                        <button class="btn btn-sm btn-outline-secondary me-2" id="download-report-btn"><i class="fas fa-download me-1"></i> PDF</button>
+                        <button class="btn btn-sm btn-primary" id="try-another-btn"><i class="fas fa-redo me-1"></i> New Resume</button>
+                    </div>
+                </div>
+
+                <!-- Strengths -->
+                <div class="card mb-4">
+                    <div class="card-header"><i class="fas fa-check-circle text-success me-2"></i>Strengths</div>
+                    <ul id="strengths-list" class="list-group list-group-flush"></ul>
+                </div>
+
+                <!-- Suggestions -->
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-lightbulb text-warning me-2"></i>Suggestions for Improvement</div>
+                    <ul id="suggestions-list" class="list-group list-group-flush"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
